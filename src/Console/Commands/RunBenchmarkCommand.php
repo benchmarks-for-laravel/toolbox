@@ -32,14 +32,15 @@ class RunBenchmarkCommand extends Command implements PromptsForMissingInput
             switch ($update->type()) {
                 case UpdateType::Done: {
                     $this->line('');
-                    $this->line('Done.');
                     break;
                 }
 
                 case UpdateType::Measurement: {
                     $newGroup = $update->group();
 
-                    if ($previousGroup !== $newGroup) {
+                    if (!$previousGroup) {
+                        $this->line($previousGroup = $newGroup);
+                    } else if ($previousGroup !== $newGroup) {
                         $this->line('');
                         $this->line($previousGroup = $newGroup);
                     }
