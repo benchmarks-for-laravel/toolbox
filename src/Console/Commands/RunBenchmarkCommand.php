@@ -26,6 +26,11 @@ class RunBenchmarkCommand extends Command implements PromptsForMissingInput
     {
         $benchmark = manager()->benchmark($this->argument('slug'));
 
+        if (!$benchmark) {
+            $this->error('Could not find the requested benchmark');
+            return;
+        }
+
         $previousGroup = null;
 
         $benchmark->run(onUpdate: function(Update $update) use (&$previousGroup) {

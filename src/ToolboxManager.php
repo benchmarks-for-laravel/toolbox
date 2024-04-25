@@ -36,7 +36,7 @@ class ToolboxManager
         return $this->classes->map(fn($class) => resolve($class));
     }
 
-    public function benchmark(string $slug): Benchmark
+    public function benchmark(string $slug): Benchmark|null
     {
         return $this->benchmarks()->first(fn($item) => $item->getSlug() === $slug);
     }
