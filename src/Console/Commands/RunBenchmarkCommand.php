@@ -22,13 +22,13 @@ class RunBenchmarkCommand extends Command implements PromptsForMissingInput
      */
     protected $description = 'Runs one or more benchmarks';
 
-    public function handle(): void
+    public function handle(): int
     {
         $benchmark = manager()->benchmark($this->argument('slug'));
 
         if (!$benchmark) {
             $this->error('Could not find the requested benchmark');
-            return;
+            return static::FAILURE;
         }
 
         $previousGroup = null;
@@ -36,7 +36,7 @@ class RunBenchmarkCommand extends Command implements PromptsForMissingInput
         $benchmark->run(onUpdate: function(Update $update) use (&$previousGroup) {
             switch ($update->type()) {
                 case UpdateType::Done: {
-                    $this->line('');
+                    $this->newLine();
                     break;
                 }
 
@@ -46,7 +46,7 @@ class RunBenchmarkCommand extends Command implements PromptsForMissingInput
                     if (!$previousGroup) {
                         $this->line($previousGroup = $newGroup);
                     } else if ($previousGroup !== $newGroup) {
-                        $this->line('');
+                        $this->newLine();
                         $this->line($previousGroup = $newGroup);
                     }
 
@@ -61,6 +61,8 @@ class RunBenchmarkCommand extends Command implements PromptsForMissingInput
                 }
             }
         });
+
+        return static::SUCCESS;
     }
 
     protected function promptForMissingArgumentsUsing(): array
