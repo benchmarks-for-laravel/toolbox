@@ -1,0 +1,45 @@
+{
+  "name": "benchmarks-for-laravel/toolbox",
+  "description": "A set of helpers with which to build and run benchmarks",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Christopher Pitt",
+      "email": "me@assertchris.io",
+      "homepage": "https://assertchris.io",
+      "role": "Developer"
+    }
+  ],
+  "homepage": "https://github.com/benchmarks-for-laravel/toolbox",
+  "require": {
+    "php": "^8.3",
+    "illuminate/container": "^9.0|^10.0|^11.0",
+    "illuminate/contracts": "^9.0|^10.0|^11.0",
+    "illuminate/support": "^9.0|^10.0|^11.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "BenchmarksForLaravel\\Toolbox\\": "src"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "BenchmarksForLaravel\\Toolbox\\Tests\\": "tests"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "BenchmarksForLaravel\\Toolbox\\ToolboxServiceProvider"
+      ]
+    }
+  }
+}
